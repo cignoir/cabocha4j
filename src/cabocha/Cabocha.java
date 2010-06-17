@@ -1,10 +1,14 @@
 package cabocha;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.InputStreamThread;
+import node.Sentense;
 
 /**
  * 
@@ -12,76 +16,58 @@ import utils.InputStreamThread;
  * 
  */
 public class Cabocha {
-	String cabochaPath;
-	List<String> exeResult;
+
+	private String cabochaPath;
 
 	/**
-	 * Constructor
+	 * example: "C:\\Program Files\\CaboCha\\bin\\cabocha.exe"
 	 * 
-	 * @param cabochaPath
+	 * @param absolutePathOfCabocha
 	 */
-	public Cabocha(String cabochaPath, List<String> params) {
-		this.cabochaPath = cabochaPath;
-		exeResult = printOutput(execute(new ArrayList<String>()));
+	public Cabocha(String absolutePathOfCabocha) {
+		setCabochaPath(absolutePathOfCabocha);
 	}
 
-	// TODO:
 	public static void main(String[] args) {
-		Cabocha cabocha = new Cabocha(args[0], new ArrayList<String>());
-		if(cabocha.exeResult.size() == 0) {
-			return;
-		}
-		
-		
-	}
-
-	/**
-	 * 
-	 * @param params
-	 * @return
-	 */
-	Process execute(List<String> params) {
-		params.add(0, cabochaPath);
-		ProcessBuilder pBuilder = new ProcessBuilder(params);
-		Process process = null;
+		Cabocha cabocha = new Cabocha(args[0]);
 		try {
-			process = pBuilder.start();
-			System.out.println("start:" + cabochaPath);
-		} catch (IOException e) {
-			System.out.println("ERROR- cannot start the process:" + cabochaPath);
+			cabocha.execute("今日は花子は元気です");
+		} catch (Exception e) {
+			System.out.println(e);
 		}
-		return process;
 	}
 
 	/**
+	 * execute the process that is specified in constructor's argument.
 	 * 
-	 * @param process
+	 * @param targetToAnalyze
 	 * @return List<String>
+	 * @throws IOException
+	 * @throws InterruptedException
 	 */
-	List<String> printOutput(Process process) {
-		InputStreamThread it = new InputStreamThread(process.getInputStream());
-		InputStreamThread et = new InputStreamThread(process.getErrorStream());
-		it.start();
-		et.start();
-
-		try {
-			process.waitFor();
-			it.join();
-			et.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	public List<Sentense> execute(String targetToAnalyze) throws IOException, InterruptedException{
+		ProcessBuilder pb = new ProcessBuilder(cabochaPath, "-f1");
+		Process process = pb.start();
+		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(process.getOutputStream(), "Shift-JIS");
+		outputStreamWriter.write(targetToAnalyze);
+		outputStreamWriter.close();
+		
+		InputStream is = process.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is, "Shift-JIS"));
+		String line;
+		List<String> result = new ArrayList<String>();
+		while ((line = br.readLine()) != null) {
+			result.add(line);
+			System.out.println(line);
 		}
-
-		System.out.println("quit：" + process.exitValue());
-
-		ArrayList<String> result = new ArrayList<String>();
-		for (String s : it.getStringList()) {
-			result.add(s);
-			System.out.println(s);
-		}
-		for (String s : et.getStringList()) {
-			System.err.println(s);
-		}
+		process.destroy();
+		process.waitFor();
+		
 		return result;
 	}
+	
+	public void setCabochaPath(String cabochaPath) {
+		this.cabochaPath = cabochaPath;
+	}
+
 }
