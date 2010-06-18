@@ -28,15 +28,6 @@ public class Cabocha {
 		setCabochaPath(absolutePathOfCabocha);
 	}
 
-	public static void main(String[] args) {
-		Cabocha cabocha = new Cabocha(args[0]);
-		try {
-			cabocha.execute("ロールグループに紐づけようとしたところ以下のエラーが発生しました。");
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
 	/**
 	 * execute the process that is specified in constructor's argument.
 	 * 
