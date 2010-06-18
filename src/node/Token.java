@@ -22,23 +22,7 @@ public class Token {
 		this.pos = pos;
 		this.ctype = ctype;
 		this.cform = cform;
-		setNe(ne);
-	}
-
-	public void setNe(String ne) {
-		if(ne.equals("B-PERSON")) {
-			this.ne = TokenNeDiv.B_PERSON;
-		} else if(ne.equals("I-PERSON")) {
-			this.ne = TokenNeDiv.I_PERSON;
-		}else if(ne.equals("B-DATE")) {
-			this.ne = TokenNeDiv.B_DATE;
-		} else if(ne.equals("I-DATE")) {
-			this.ne = TokenNeDiv.I_DATE;
-		} else if(ne.equals("B-ORGANIZATION")) {
-			this.ne = TokenNeDiv.B_ORGANIZATION;
-		} else if(ne.equals("I-ORGANIZATION")) {
-			this.ne = TokenNeDiv.I_ORGANIZATION;
-		}
+		this.ne = TokenNeDiv.getInstance(ne);
 	}
 
 	public void setParentChunkId(int parentChunkId) {

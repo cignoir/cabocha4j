@@ -17,18 +17,10 @@ public class Chunk {
 	public Chunk(String id, String link, String rel, String score, String head, String func) {
 		this.id = Integer.parseInt(id);
 		this.link = Integer.parseInt(link);
-		setRel(rel);
+		this.rel = ChunkRelDiv.getInstance(rel);
 		this.score = Double.parseDouble(score);
 		this.head = Integer.parseInt(head);
 		this.func = Integer.parseInt(func);
-	}
-
-	public void setRel(String rel) {
-		if(rel.equals("D")) {
-			this.rel = ChunkRelDiv.D;
-		} else if(rel.equals("O")) {
-			this.rel = ChunkRelDiv.O;
-		}
 	}
 	
 	public void setTokenList(List<Token> tokenList) {
