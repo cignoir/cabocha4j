@@ -2,10 +2,11 @@ package node;
 
 import java.util.List;
 
+import utils.RegexParser;
 import enums.ChunkRelDiv;
 
 public class Chunk {
-	private List<Token> tokenList;
+	private List<Token> childTokenList;
 
 	private int id;
 	private int link;
@@ -15,20 +16,24 @@ public class Chunk {
 	private int func;
 
 	public Chunk(String id, String link, String rel, String score, String head, String func) {
-		this.id = Integer.parseInt(id);
-		this.link = Integer.parseInt(link);
-		this.rel = ChunkRelDiv.getInstance(rel);
-		this.score = Double.parseDouble(score);
-		this.head = Integer.parseInt(head);
-		this.func = Integer.parseInt(func);
+		char dq = RegexParser.DOUBLE_QUATE;
+		this.id = Integer.parseInt(RegexParser.getInnerString(id, dq));
+		this.link = Integer.parseInt(RegexParser.getInnerString(link, dq));
+		this.rel = ChunkRelDiv.getInstance(RegexParser.getInnerString(rel, dq));
+		this.score = Double.parseDouble(RegexParser.getInnerString(score, dq));
+		this.head = Integer.parseInt(RegexParser.getInnerString(head, dq));
+		this.func = Integer.parseInt(RegexParser.getInnerString(func, dq));
+		
+		String tab = "\t";
+		System.out.println(this.id + tab + this.link + tab + this.rel + tab + this.score + tab + this.head + tab + this.func);
 	}
 	
-	public void setTokenList(List<Token> tokenList) {
-		this.tokenList = tokenList;
+	public void setChildTokenList(List<Token> childTokenList) {
+		this.childTokenList = childTokenList;
 	}
 
-	public List<Token> getTokenList() {
-		return tokenList;
+	public List<Token> getChildTokenList() {
+		return childTokenList;
 	}
 
 	public int getId() {

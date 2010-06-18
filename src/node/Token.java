@@ -1,5 +1,6 @@
 package node;
 
+import utils.RegexParser;
 import enums.TokenNeDiv;
 
 public class Token {
@@ -16,13 +17,17 @@ public class Token {
 	public Token(int parentChunkId, String id, String read, String base, String pos, String ctype, String cform, String ne) {
 		this.parentChunkId = parentChunkId;
 
-		this.id = Integer.parseInt(id);
-		this.read = read;
-		this.base = base;
-		this.pos = pos;
-		this.ctype = ctype;
-		this.cform = cform;
-		this.ne = TokenNeDiv.getInstance(ne);
+		char dq = RegexParser.DOUBLE_QUATE;
+		this.id = Integer.parseInt(RegexParser.getInnerString(id, dq));
+		this.read = RegexParser.getInnerString(read, dq);
+		this.base = RegexParser.getInnerString(base, dq);
+		this.pos = RegexParser.getInnerString(pos, dq);
+		this.ctype = RegexParser.getInnerString(ctype, dq);
+		this.cform = RegexParser.getInnerString(cform, dq);
+		this.ne = TokenNeDiv.getInstance(RegexParser.getInnerString(ne, dq));
+		
+		String tab = "\t";
+		System.out.println(this.id + tab + this.read + tab + this.base + tab + this.pos + tab + this.ctype + tab + this.cform + tab + this.ne);
 	}
 
 	public void setParentChunkId(int parentChunkId) {

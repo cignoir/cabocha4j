@@ -31,7 +31,7 @@ public class Cabocha {
 	public static void main(String[] args) {
 		Cabocha cabocha = new Cabocha(args[0]);
 		try {
-			cabocha.execute("昨日にドワンゴを追加しました。");
+			cabocha.execute("ロールグループに紐づけようとしたところ以下のエラーが発生しました。");
 		} catch (Exception e) {
 			System.out.println(e);
 		}

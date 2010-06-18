@@ -49,7 +49,7 @@ public class Sentense {
 						,ary[C_HEAD]
 						,ary[C_FUNC]);
 			} else if(line.contains("</chunk>")) {
-				chunk.setTokenList(tokenList);
+				chunk.setChildTokenList(tokenList);
 				chunkList.add(chunk);
 				
 				chunk = null;
