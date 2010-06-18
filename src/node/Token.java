@@ -3,6 +3,11 @@ package node;
 import utils.RegexParser;
 import enums.TokenNeDiv;
 
+/**
+ * 
+ * @author noire722
+ *
+ */
 public class Token {
 	private int parentChunkId;
 

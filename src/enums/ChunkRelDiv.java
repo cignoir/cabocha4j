@@ -1,5 +1,10 @@
 package enums;
 
+/**
+ * 
+ * @author noire722
+ *
+ */
 public enum ChunkRelDiv {
 	D("D"), O("O"), NONE("");
 	

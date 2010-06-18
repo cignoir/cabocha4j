@@ -3,6 +3,11 @@ package utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ * @author noire722
+ *
+ */
 public class RegexParser {
 	public static final char DOUBLE_QUATE = '\"';
 	

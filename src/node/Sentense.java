@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ * @author noire722
+ *
+ */
 public class Sentense {
 	private String plainText;
 	private List<String> analyzed;

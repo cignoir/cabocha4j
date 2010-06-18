@@ -1,5 +1,10 @@
 package enums;
 
+/**
+ * 
+ * @author noire722
+ *
+ */
 public enum TokenNeDiv {
 	B_DATE("B-DATE")
 	, I_DATE("I-DATE")

@@ -5,6 +5,11 @@ import java.util.List;
 import utils.RegexParser;
 import enums.ChunkRelDiv;
 
+/**
+ * 
+ * @author noire722
+ *
+ */
 public class Chunk {
 	private List<Token> childTokenList;
 

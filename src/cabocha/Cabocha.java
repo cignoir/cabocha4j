@@ -29,13 +29,27 @@ public class Cabocha {
 	}
 
 	/**
+	 * for test
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Cabocha cabocha = new Cabocha(args[0]);
+		try {
+			cabocha.execute("今日はいい天気ですね。");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	/**
 	 * execute the process that is specified in constructor's argument.
 	 * 
 	 * @param targetToAnalyze
 	 * @return List<String>
+	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
-	 * @throws ParsingException
 	 */
 	public Sentense execute(String targetToAnalyze) throws IOException, InterruptedException {
 		ProcessBuilder pb = new ProcessBuilder(cabochaPath, "-f3");
