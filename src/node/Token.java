@@ -1,46 +1,54 @@
 package node;
 
+import enums.TokenNeDiv;
+
 public class Token {
-	private String token;
 	private int parentChunkId;
-	
+
 	private int id;
 	private String read;
 	private String base;
 	private String pos;
 	private String ctype;
 	private String cform;
-	private String ne;
-	
-	public Token(String token, int parentChunkId, int id, String read, String base, String pos, String ctype, String cform, String ne) {
-		this.token = token;
+	private TokenNeDiv ne;
+
+	public Token(int parentChunkId, String id, String read, String base, String pos, String ctype, String cform, String ne) {
 		this.parentChunkId = parentChunkId;
-		
-		this.id = id;
+
+		this.id = Integer.parseInt(id);
 		this.read = read;
 		this.base = base;
 		this.pos = pos;
 		this.ctype = ctype;
 		this.cform = cform;
-		this.ne = ne;
+		setNe(ne);
 	}
 
-	public String getToken() {
-		return token;
+	public void setNe(String ne) {
+		if(ne.equals("B-PERSON")) {
+			this.ne = TokenNeDiv.B_PERSON;
+		} else if(ne.equals("I-PERSON")) {
+			this.ne = TokenNeDiv.I_PERSON;
+		}else if(ne.equals("B-DATE")) {
+			this.ne = TokenNeDiv.B_DATE;
+		} else if(ne.equals("I-DATE")) {
+			this.ne = TokenNeDiv.I_DATE;
+		} else if(ne.equals("B-ORGANIZATION")) {
+			this.ne = TokenNeDiv.B_ORGANIZATION;
+		} else if(ne.equals("I-ORGANIZATION")) {
+			this.ne = TokenNeDiv.I_ORGANIZATION;
+		}
 	}
 
-	public void setToken(String token) {
-		this.token = token;
-	}
-	
 	public void setParentChunkId(int parentChunkId) {
 		this.parentChunkId = parentChunkId;
 	}
-	
+
 	public int getParentChunkId() {
 		return parentChunkId;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -48,6 +56,7 @@ public class Token {
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getRead() {
 		return read;
 	}
@@ -88,14 +97,13 @@ public class Token {
 		this.cform = cform;
 	}
 
-	public String getNe() {
+	public TokenNeDiv getNe() {
 		return ne;
 	}
 
-	public void setNe(String ne) {
+	public void setNe(TokenNeDiv ne) {
 		this.ne = ne;
 	}
+	
 
-	
-	
 }

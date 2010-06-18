@@ -2,12 +2,33 @@ package node;
 
 import java.util.List;
 
+import enums.ChunkRelDiv;
+
 public class Chunk {
-	private int parentSentenceId;
 	private List<Token> tokenList;
 
-	public Chunk(int parentSentenceId, List<String> analyzed) {
-		this.parentSentenceId = parentSentenceId;
+	private int id;
+	private int link;
+	private ChunkRelDiv rel;
+	private double score;
+	private int head;
+	private int func;
+
+	public Chunk(String id, String link, String rel, String score, String head, String func) {
+		this.id = Integer.parseInt(id);
+		this.link = Integer.parseInt(link);
+		setRel(rel);
+		this.score = Double.parseDouble(score);
+		this.head = Integer.parseInt(head);
+		this.func = Integer.parseInt(func);
+	}
+
+	public void setRel(String rel) {
+		if(rel.equals("D")) {
+			this.rel = ChunkRelDiv.D;
+		} else if(rel.equals("O")) {
+			this.rel = ChunkRelDiv.O;
+		}
 	}
 	
 	public void setTokenList(List<Token> tokenList) {
@@ -18,11 +39,52 @@ public class Chunk {
 		return tokenList;
 	}
 
-	public void setParentSentenceId(int parentSentenceId) {
-		this.parentSentenceId = parentSentenceId;
+	public int getId() {
+		return id;
 	}
 
-	public int getParentSentenceId() {
-		return parentSentenceId;
+	public void setId(int id) {
+		this.id = id;
 	}
+
+	public int getLink() {
+		return link;
+	}
+
+	public void setLink(int link) {
+		this.link = link;
+	}
+
+	public ChunkRelDiv getRel() {
+		return rel;
+	}
+
+	public void setRel(ChunkRelDiv rel) {
+		this.rel = rel;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	public int getHead() {
+		return head;
+	}
+
+	public void setHead(int head) {
+		this.head = head;
+	}
+
+	public int getFunc() {
+		return func;
+	}
+
+	public void setFunc(int func) {
+		this.func = func;
+	}
+
 }

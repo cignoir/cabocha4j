@@ -31,7 +31,7 @@ public class Cabocha {
 	public static void main(String[] args) {
 		Cabocha cabocha = new Cabocha(args[0]);
 		try {
-			cabocha.execute("今日は花子は元気です");
+			cabocha.execute("昨日にドワンゴを追加しました。");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -44,14 +44,15 @@ public class Cabocha {
 	 * @return List<String>
 	 * @throws IOException
 	 * @throws InterruptedException
+	 * @throws ParsingException
 	 */
-	public List<Sentense> execute(String targetToAnalyze) throws IOException, InterruptedException{
-		ProcessBuilder pb = new ProcessBuilder(cabochaPath, "-f1");
+	public Sentense execute(String targetToAnalyze) throws IOException, InterruptedException {
+		ProcessBuilder pb = new ProcessBuilder(cabochaPath, "-f3");
 		Process process = pb.start();
 		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(process.getOutputStream(), "Shift-JIS");
 		outputStreamWriter.write(targetToAnalyze);
 		outputStreamWriter.close();
-		
+
 		InputStream is = process.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(is, "Shift-JIS"));
 		String line;
@@ -62,10 +63,10 @@ public class Cabocha {
 		}
 		process.destroy();
 		process.waitFor();
-		
-		return result;
+
+		return new Sentense(targetToAnalyze, result);
 	}
-	
+
 	public void setCabochaPath(String cabochaPath) {
 		this.cabochaPath = cabochaPath;
 	}
