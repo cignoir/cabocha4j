@@ -30,7 +30,7 @@ public class Chunk {
 		this.func = Integer.parseInt(RegexParser.getInnerString(func, dq));
 		
 		String tab = "\t";
-		System.out.println(this.id + tab + this.link + tab + this.rel + tab + this.score + tab + this.head + tab + this.func);
+		System.out.println("*" + this.id + tab + this.link + tab + this.rel + tab + this.score + tab + this.head + tab + this.func);
 	}
 	
 	public void setChildTokenList(List<Token> childTokenList) {

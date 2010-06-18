@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import node.Sentense;
+import node.Sentence;
 
 /**
  * 
@@ -51,7 +51,7 @@ public class Cabocha {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public Sentense execute(String targetToAnalyze) throws IOException, InterruptedException {
+	public Sentence execute(String targetToAnalyze) throws IOException, InterruptedException {
 		ProcessBuilder pb = new ProcessBuilder(cabochaPath, "-f3");
 		Process process = pb.start();
 		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(process.getOutputStream(), "Shift-JIS");
@@ -69,7 +69,7 @@ public class Cabocha {
 		process.destroy();
 		process.waitFor();
 
-		return new Sentense(targetToAnalyze, result);
+		return new Sentence(targetToAnalyze, result);
 	}
 
 	public void setCabochaPath(String cabochaPath) {

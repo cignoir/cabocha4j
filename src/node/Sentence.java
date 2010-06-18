@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @author noire722
  *
  */
-public class Sentense {
+public class Sentence {
 	private String plainText;
 	private List<String> analyzed;
 	private List<Chunk> chunkList;
@@ -29,7 +29,7 @@ public class Sentense {
 	private static final int T_CFORM = 6;
 	private static final int T_NE = 7;
 	
-	public Sentense(String plainText, List<String> analyzed){
+	public Sentence(String plainText, List<String> analyzed){
 		setPlainText(plainText);
 		setAnalyzed(analyzed);
 		chunkList = createChunkList();		
