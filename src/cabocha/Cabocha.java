@@ -57,7 +57,7 @@ public class Cabocha {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 
 	}
