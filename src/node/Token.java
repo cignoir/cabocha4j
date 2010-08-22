@@ -22,17 +22,14 @@ public class Token {
 	public Token(int parentChunkId, String id, String read, String base, String pos, String ctype, String cform, String ne) {
 		this.parentChunkId = parentChunkId;
 
-		char dq = RegexParser.DOUBLE_QUATE;
-		this.id = Integer.parseInt(RegexParser.getInnerString(id, dq));
-		this.read = RegexParser.getInnerString(read, dq);
-		this.base = RegexParser.getInnerString(base, dq);
-		this.pos = RegexParser.getInnerString(pos, dq);
-		this.ctype = RegexParser.getInnerString(ctype, dq);
-		this.cform = RegexParser.getInnerString(cform, dq);
-		this.ne = TokenNeDiv.getInstance(RegexParser.getInnerString(ne, dq));
-		
-		String tab = "\t";
-		System.out.println(this.id + tab + this.read + tab + this.base + tab + this.pos + tab + this.ctype + tab + this.cform + tab + this.ne);
+		String dq = RegexParser.DOUBLE_QUATE;
+		this.id = Integer.parseInt(RegexParser.getInnerString(id, dq, dq));
+		this.read = RegexParser.getInnerString(read, dq, dq);
+		this.base = RegexParser.getInnerString(base, dq, dq);
+		this.pos = RegexParser.getInnerString(pos, dq, dq);
+		this.ctype = RegexParser.getInnerString(ctype, dq, dq);
+		this.cform = RegexParser.getInnerString(cform, dq, dq);
+		this.ne = TokenNeDiv.getInstance(RegexParser.getInnerString(ne, dq, dq));
 	}
 
 	public void setParentChunkId(int parentChunkId) {

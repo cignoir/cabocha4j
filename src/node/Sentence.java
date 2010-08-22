@@ -58,7 +58,7 @@ public class Sentence {
 				chunkList.add(chunk);
 				
 				chunk = null;
-				tokenList.clear();
+				tokenList = new ArrayList<Token>();
 			} else if (chunk != null){
 				String[] ary = line.split(" ");
 				Token token = new Token(

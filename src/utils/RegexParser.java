@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  *
  */
 public class RegexParser {
-	public static final char DOUBLE_QUATE = '\"';
+	public static final String DOUBLE_QUATE = "\"";
 	
 	/**
 	 * Find and get the inner string between the specified symbol in
@@ -18,12 +18,13 @@ public class RegexParser {
 	 * @param symbol
 	 * @return String
 	 */
-	public static String getInnerString(String searchFrom, char symbol) {
-		Matcher matcher = Pattern.compile(symbol + ".*" + symbol).matcher(searchFrom);
+	public static String getInnerString(String searchFrom, String start, String end) {
+		Matcher matcher = Pattern.compile(start + ".*" + end).matcher(searchFrom);
 		String result = null;
 		if (matcher.find()) {
 			result = matcher.group();
-			result = result.substring(1, result.length() - 1);
+			result = result.replaceFirst(start, "");
+			result = result.replaceFirst(end, "");
 		}
 		return result;
 	}
