@@ -5,6 +5,7 @@ import java.util.List;
 
 import utils.RegexParser;
 import enums.ChunkRelDiv;
+import enums.PosDiv;
 
 /**
  * 
@@ -12,7 +13,7 @@ import enums.ChunkRelDiv;
  * 
  */
 public class Chunk {
-	private List<Token> childTokenList;
+	private List<Token> tokens;
 
 	private int id;
 	private int link;
@@ -33,15 +34,109 @@ public class Chunk {
 	}
 
 	/**
+	 * Remove tokens match the POS specified by argument.
+	 * 
+	 * @param posDiv
+	 * @return List<Token>
+	 */
+	public List<Token> remove(PosDiv posDiv){
+		List<Token> tokens = getTokens();
+		List<Token> result = new ArrayList<Token>();
+		for(Token token : tokens) {
+			if(token.is(posDiv) == false) {
+				result.add(token);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Find the token which has a POS specified by an argument.
+	 * If there are no tokens match condition, return an empty list. 
+	 * 
+	 * @param PosDiv posDiv
+	 * @return List<Token>
+	 */
+	public List<Token> find(PosDiv posDiv){
+		List<Token> result = new ArrayList<Token>();
+		for(Token token : tokens) {
+			if(token.is(posDiv)) {
+				result.add(token);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Return the token sequence.
+	 * 
+	 * @param start
+	 * @param end
+	 * @return List<Token>
+	 */
+	public List<Token> findSeq(PosDiv start, PosDiv end){
+		List<Token> tokens = getTokens();
+		List<Token> result = new ArrayList<Token>();
+		boolean endFlg = false;
+		int i = 0;
+		while(i < tokens.size()) {
+			Token token = tokens.get(i);
+			if(token.is(start)) {
+				result.add(token);
+				i++;
+				for(int j = i; j < tokens.size(); j++) {
+					result.add(token);
+					if(token.is(end)) {
+						endFlg = true;
+						break;
+					}
+					
+					if(j == tokens.size() - 1) {
+						result = new ArrayList<Token>();
+						endFlg = true;
+					}
+				}
+			}
+			
+			if(endFlg) {
+				break;
+			} else {
+				i++;
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Return TRUE, if this has reference.
+	 * 
+	 * @return boolean
+	 */
+	public boolean hasReferTo(){
+		return this.link != -1;
+	}
+	
+	/**
+	 * Return TRUE, if this is referenced by some chunks.
+	 * 
+	 * @param chunks
+	 * @return boolean
+	 */
+	public boolean hasReferencedBy(List<Chunk> chunks) {
+		return getReferencedBy(chunks).size() != 0;
+	}
+	
+	/**
 	 * Judge the instance is Subject(主語).
 	 * 
 	 * *** CAUTION *** This method is incomplete.
 	 * 
 	 * @return boolean
 	 */
+	@Deprecated
 	public boolean isSubject() {
-		Token last = childTokenList.get(childTokenList.size() - 1);
-		return childTokenList.size() > 1 && last.getPos().startsWith("助詞")
+		Token last = tokens.get(tokens.size() - 1);
+		return tokens.size() > 1 && last.is(PosDiv.PARTICLE)
 				&& (last.getBase().equals("は") || last.getBase().equals("が"))
 				&& this.getLink() != -1;
 	}
@@ -53,12 +148,14 @@ public class Chunk {
 	 * 
 	 * @return boolean
 	 */
+	@Deprecated
 	public boolean isPredicate() {
-		for (int i = 0; i < childTokenList.size(); i++) {
-			Token token = childTokenList.get(i);
+		for (int i = 0; i < tokens.size(); i++) {
+			Token token = tokens.get(i);
 			if (this.getLink() == -1
-					&& (token.getPos().contains("形容") || token.getPos()
-							.contains("動詞"))) {
+					&& (token.is(PosDiv.ADJECTIVE)
+							|| token.is(PosDiv.ADJECTIVE_VERB)
+							|| token.is(PosDiv.VERB))) {
 				return true;
 			}
 		}
@@ -98,12 +195,12 @@ public class Chunk {
 		return result;
 	}
 	
-	public void setChildTokenList(List<Token> childTokenList) {
-		this.childTokenList = childTokenList;
+	public void setTokens(List<Token> tokens) {
+		this.tokens = tokens;
 	}
 
-	public List<Token> getChildTokenList() {
-		return this.childTokenList;
+	public List<Token> getTokens() {
+		return this.tokens;
 	}
 
 	public int getId() {

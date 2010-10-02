@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class Sentence {
 	private String plainText;
 	private List<String> analyzed;
-	private List<Chunk> chunkList;
+	private List<Chunk> chunks;
 	
 	private static final int C_ID = 1;
 	private static final int C_LINK = 2;
@@ -32,12 +32,12 @@ public class Sentence {
 	public Sentence(String plainText, List<String> analyzed){
 		setPlainText(plainText);
 		setAnalyzed(analyzed);
-		chunkList = createChunkList();		
+		chunks = createChunks();		
 	}
 
-	private List<Chunk> createChunkList() {
-		List<Chunk> chunkList = new ArrayList<Chunk>();
-		List<Token> tokenList = new ArrayList<Token>();
+	private List<Chunk> createChunks() {
+		List<Chunk> chunks = new ArrayList<Chunk>();
+		List<Token> tokens = new ArrayList<Token>();
 		
 		Chunk chunk = null;
 		for(String line : analyzed) {
@@ -54,15 +54,15 @@ public class Sentence {
 						,ary[C_HEAD]
 						,ary[C_FUNC]);
 			} else if(line.contains("</chunk>")) {
-				chunk.setChildTokenList(tokenList);
-				chunkList.add(chunk);
+				chunk.setTokens(tokens);
+				chunks.add(chunk);
 				
 				chunk = null;
-				tokenList = new ArrayList<Token>();
+				tokens = new ArrayList<Token>();
 			} else if (chunk != null){
 				String[] ary = line.split(" ");
 				Token token = new Token(
-						chunkList.size()
+						chunks.size()
 						,ary[T_ID]
 						,ary[T_READ]
 						,ary[T_BASE]
@@ -71,10 +71,10 @@ public class Sentence {
 						,ary[T_CFORM]
 						,ary[T_NE]
 				);
-				tokenList.add(token);
+				tokens.add(token);
 			}
 		}
-		return chunkList;
+		return chunks;
 	}
 
 	public void setPlainText(String plainText) {
@@ -93,12 +93,12 @@ public class Sentence {
 		return analyzed;
 	}
 
-	public void setChunkList(List<Chunk> chunkList) {
-		this.chunkList = chunkList;
+	public void setChunks(List<Chunk> chunks) {
+		this.chunks = chunks;
 	}
 
-	public List<Chunk> getChunkList() {
-		return chunkList;
+	public List<Chunk> getChunks() {
+		return chunks;
 	}
 	
 }

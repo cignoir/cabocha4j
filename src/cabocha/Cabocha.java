@@ -48,9 +48,9 @@ public class Cabocha {
 		try {
 			for (int i = 1; i < args.length; i++) {
 				Sentence sentence = cabocha.execute(args[i]);
-				List<Chunk> chunkList = sentence.getChunkList();
+				List<Chunk> chunkList = sentence.getChunks();
 				for (Chunk chunk : chunkList) {
-					List<Token> tokens = chunk.getChildTokenList();
+					List<Token> tokens = chunk.getTokens();
 					for (Token token : tokens) {
 						System.out.print(token.getBase());
 					}
