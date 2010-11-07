@@ -1,7 +1,7 @@
 package enums;
 
 /**
- * 
+ * Tokenの属性を定義
  * @author noire722
  *
  */

@@ -1,7 +1,7 @@
 package enums;
 
 /**
- * 
+ * 品詞を定義
  * @author noire722
  *
  */

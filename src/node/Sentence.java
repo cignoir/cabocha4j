@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import utils.RegexParser;
+
 /**
- * 
+ * Sentenceは一文を表現する。
+ * 複数のChunkからSenetenceは構成される。
  * @author noire722
  *
  */
@@ -23,18 +26,30 @@ public class Sentence {
 	private static final int C_FUNC = 6;
 	private static final int T_ID = 1;
 	private static final int T_READ = 2;
-	private static final int T_BASE = 3;
+//	private static final int T_BASE = 3;
 	private static final int T_POS = 4;
 	private static final int T_CTYPE = 5;
 	private static final int T_CFORM = 6;
 	private static final int T_NE = 7;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param plainText
+	 * @param analyzed
+	 */
 	public Sentence(String plainText, List<String> analyzed){
 		setPlainText(plainText);
 		setAnalyzed(analyzed);
 		chunks = createChunks();		
 	}
 
+	/**
+	 * CaboChaの係り受け解析の結果から
+	 * Chunkオブジェクトを生成し、取得する。
+	 * 
+	 * @return List<Chunk>
+	 */
 	private List<Chunk> createChunks() {
 		List<Chunk> chunks = new ArrayList<Chunk>();
 		List<Token> tokens = new ArrayList<Token>();
@@ -65,7 +80,11 @@ public class Sentence {
 						chunks.size()
 						,ary[T_ID]
 						,ary[T_READ]
-						,ary[T_BASE]
+						/*
+						 * CaboCha自体にバグがあり、baseを取得できない場合がある(詳細不明)。
+						 * そのためbaseだけは元の文章を元に生成する。
+						 */
+						,RegexParser.removeTags(line)
 						,ary[T_POS]
 						,ary[T_CTYPE]
 						,ary[T_CFORM]

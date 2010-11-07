@@ -15,20 +15,25 @@ import enums.PosDiv;
 public class Utils {
 	
 	/**
-	 * Chain words which have Unknown-POS-.
+	 * 引数で指定したChunkリスト中の連続した品詞を連結させる。
+	 * 連結されたTokenはひとつのTokenとして扱われる。
+	 * 第二引数で指定するPosDivは可変長引数であり、複数指定することが可能。
+	 * Chain words which have POSes specified with the Second argument
+	 * from the ChunkList.
 	 * 
-	 * @param List<Chunk> chunks
+	 * @param List<Chunk> chunks 
+	 * @param PosDiv... chains ここで指定したPosDivを連結させる。
 	 * @return List<Chunk>
 	 */
-	public static List<Chunk> chainUnknown(List<Chunk> chunks) {
+	public static List<Chunk> chainPos(List<Chunk> chunks, PosDiv... chains) {
 		List<Chunk> result = new ArrayList<Chunk>();
 		for(Chunk chunk : chunks) {
-			List<Token> seq = chunk.findSeq(PosDiv.UNKNOWN, PosDiv.UNKNOWN);
+			List<Token> seq = chunk.find(chains);
 			if(seq.size() != 0) {
 				List<Token> tokens = chunk.getTokens();
 				List<Token> chained = new ArrayList<Token>();
 				for(int i = 0; i < tokens.size(); i++) {
-					if(tokens.get(i).is(PosDiv.UNKNOWN)) {
+					if(tokens.get(i).is(chains)) {
 						StringBuffer base = new StringBuffer();
 						for(Token part : seq) {
 							base.append(part.getBase());
@@ -48,6 +53,7 @@ public class Utils {
 	}
 	
 	/**
+	 * tokensから指定したposDiv(品詞)を持つTokenを取り除く。
 	 * Remove tokens match the POS specified by argument.
 	 * 
 	 * @param posDiv
@@ -64,6 +70,7 @@ public class Utils {
 	}
 
 	/**
+	 * chunk中のTokenリストからある品詞startからある品詞endまでの連続したtokenの並びを取得する。
 	 * Return the token sequence.
 	 * 
 	 * @param chunk
@@ -82,15 +89,12 @@ public class Utils {
 				result.add(token);
 				i++;
 				for(int j = i; j < tokens.size(); j++) {
-					result.add(token);
-					if(token.is(end)) {
+					Token nextToken = tokens.get(j);
+					if(j == tokens.size() - 1 || nextToken.is(end) == false) {
+						result.add(nextToken);
+					} else {
 						endFlg = true;
 						break;
-					}
-					
-					if(j == tokens.size() - 1) {
-						result = new ArrayList<Token>();
-						endFlg = true;
 					}
 				}
 			}

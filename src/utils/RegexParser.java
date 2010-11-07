@@ -28,4 +28,13 @@ public class RegexParser {
 		}
 		return result;
 	}
+	
+	public static String removeTags(String searchFrom) {
+		Matcher matcher = Pattern.compile("<.*?>", Pattern.DOTALL).matcher(searchFrom);
+		String result = "";
+		if (matcher.find()) {
+			result = matcher.replaceAll("");
+		}
+		return result;
+	}
 }
