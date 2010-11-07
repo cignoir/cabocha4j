@@ -78,7 +78,7 @@ public class Utils {
 	 * @param end
 	 * @return List<Token>
 	 */
-	public List<Token> findSeq(Chunk chunk, PosDiv start, PosDiv end){
+	public static List<Token> findSeq(Chunk chunk, PosDiv start, PosDiv end){
 		List<Token> tokens = chunk.getTokens();
 		List<Token> result = new ArrayList<Token>();
 		boolean endFlg = false;

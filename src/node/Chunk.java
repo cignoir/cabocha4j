@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utils.RegexParser;
+import utils.Utils;
 import enums.ChunkRelDiv;
 import enums.PosDiv;
 
@@ -101,33 +102,7 @@ public class Chunk {
 	 * @return List<Token>
 	 */
 	public List<Token> findSeq(PosDiv start, PosDiv end){
-		List<Token> tokens = getTokens();
-		List<Token> result = new ArrayList<Token>();
-		boolean endFlg = false;
-		int i = 0;
-		while(i < tokens.size()) {
-			Token token = tokens.get(i);
-			if(token.is(start)) {
-				result.add(token);
-				i++;
-				for(int j = i; j < tokens.size(); j++) {
-					Token nextToken = tokens.get(j);
-					if(j == tokens.size() - 1 || nextToken.is(end) == false) {
-						result.add(nextToken);
-					} else {
-						endFlg = true;
-						break;
-					}
-				}
-			}
-			
-			if(endFlg) {
-				break;
-			} else {
-				i++;
-			}
-		}
-		return result;
+		return Utils.findSeq(this, start, end);
 	}
 	
 	/**
