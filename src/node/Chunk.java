@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utils.RegexParser;
-import utils.Utils;
+import utils.CabochaUtils;
 import enums.ChunkRelDiv;
 import enums.PosDiv;
 
 /**
  * Chunkは文節単位のノード。
  * 複数のTokenからChunkが構成される。
- * @author noire722
  * 
+ * @author noire722
  */
 public class Chunk {
 	private List<Token> tokens;
@@ -102,7 +102,7 @@ public class Chunk {
 	 * @return List<Token>
 	 */
 	public List<Token> findSeq(PosDiv start, PosDiv end){
-		return Utils.findSeq(this, start, end);
+		return CabochaUtils.findSeq(this, start, end);
 	}
 	
 	/**

@@ -9,9 +9,9 @@ import utils.RegexParser;
 
 /**
  * Sentenceは一文を表現する。
- * 複数のChunkからSenetenceは構成される。
- * @author noire722
+ * 複数のChunkからSentenceは構成される。
  *
+ * @author noire722
  */
 public class Sentence {
 	private String plainText;

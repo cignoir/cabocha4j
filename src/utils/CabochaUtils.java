@@ -8,11 +8,11 @@ import node.Token;
 import enums.PosDiv;
 
 /**
+ * Utilities for CaboCha
  * 
  * @author noire722
- * 
  */
-public class Utils {
+public class CabochaUtils {
 	
 	/**
 	 * 引数で指定したChunkリスト中の連続した品詞を連結させる。

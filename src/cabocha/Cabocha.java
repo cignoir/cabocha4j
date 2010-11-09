@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.Utils;
+import utils.CabochaUtils;
 
 import enums.PosDiv;
 
@@ -18,8 +18,8 @@ import node.Token;
 
 /**
  * 
- * @author noire722
  * 
+ * @author noire722
  */
 public class Cabocha {
 
@@ -66,7 +66,7 @@ public class Cabocha {
 
 				// Sample 2
 				System.out.println("▼名詞を連結させる");
-				chunkList = Utils.chainPos(chunkList, PosDiv.NOUN);
+				chunkList = CabochaUtils.chainPos(chunkList, PosDiv.NOUN);
 				for (Chunk chunk : chunkList) {
 					List<Token> tokens = chunk.getTokens();
 					for (Token token : tokens) {
