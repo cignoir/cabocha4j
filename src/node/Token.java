@@ -161,42 +161,9 @@ public class Token {
 	}
 
 	PosDiv getPosDiv(String pos) {
-		PosDiv posDiv = null;
-		if (has("冠詞")) {
-			posDiv = PosDiv.ARTICLE;
-		} else if (has("括弧")) {
-			posDiv = PosDiv.PARENTHESES;
-		} else if (has("記号")) {
-			posDiv = PosDiv.SYMBOL;
-		} else if (has("未知語")) {
-			posDiv = PosDiv.UNKNOWN;
-		} else if (has("感動詞")) {
-			posDiv = PosDiv.INTERJECTION;
-		} else if (has("前置詞")) {
-			posDiv = PosDiv.PREPOSITION;
-		} else if (has("接続詞")) {
-			posDiv = PosDiv.CONJUNCTION;
-		} else if (has("副詞")) {
-			posDiv = PosDiv.ADVERB;
-		} else if (has("代名詞")) {
-			posDiv = PosDiv.PRONOUN;
-		} else if (has("数詞")) {
-			posDiv = PosDiv.NUMERAL;
-		} else if (has("連体詞")) {
-			posDiv = PosDiv.NOUN_MODIFIER;
-		} else if (has("名詞")) {
-			posDiv = PosDiv.NOUN;
-		} else if (has("助動詞")) {
-			posDiv = PosDiv.AUXILIARY_VERB;
-		} else if (has("助詞")) {
-			posDiv = PosDiv.PARTICLE;
-		} else if (has("形容動詞")) {
-			posDiv = PosDiv.ADJECTIVE_VERB;
-		} else if (has("動詞")) {
-			posDiv = PosDiv.VERB;
-		} else {
-			posDiv = PosDiv.OTHER;
+		if(pos.contains("-") && pos.startsWith("-") == false) {
+			pos = pos.split("-")[0];
 		}
-		return posDiv;
+		return PosDiv.getInstance(pos);
 	}
 }
