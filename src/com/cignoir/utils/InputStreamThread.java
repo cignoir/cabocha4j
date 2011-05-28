@@ -1,4 +1,4 @@
-package utils;
+package com.cignoir.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

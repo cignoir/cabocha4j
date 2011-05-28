@@ -1,4 +1,4 @@
-package cabocha;
+package com.cignoir.cabocha;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,13 +8,14 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.CabochaUtils;
+import com.cignoir.enums.PosDiv;
+import com.cignoir.node.Chunk;
+import com.cignoir.node.Sentence;
+import com.cignoir.node.Token;
+import com.cignoir.utils.CabochaUtils;
 
-import enums.PosDiv;
 
-import node.Chunk;
-import node.Sentence;
-import node.Token;
+
 
 /**
  * 

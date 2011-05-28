@@ -1,11 +1,12 @@
-package node;
+package com.cignoir.node;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utils.RegexParser;
+import com.cignoir.utils.RegexParser;
+
 
 /**
  * Sentenceは一文を表現する。

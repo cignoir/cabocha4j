@@ -1,4 +1,4 @@
-package enums;
+package com.cignoir.enums;
 
 /**
  * Tokenの属性を定義

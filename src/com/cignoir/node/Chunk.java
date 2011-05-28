@@ -1,12 +1,13 @@
-package node;
+package com.cignoir.node;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.RegexParser;
-import utils.CabochaUtils;
-import enums.ChunkRelDiv;
-import enums.PosDiv;
+import com.cignoir.enums.ChunkRelDiv;
+import com.cignoir.enums.PosDiv;
+import com.cignoir.utils.CabochaUtils;
+import com.cignoir.utils.RegexParser;
+
 
 /**
  * Chunkは文節単位のノード。

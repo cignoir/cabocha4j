@@ -1,8 +1,9 @@
-package node;
+package com.cignoir.node;
 
-import utils.RegexParser;
-import enums.PosDiv;
-import enums.TokenNeDiv;
+import com.cignoir.enums.PosDiv;
+import com.cignoir.enums.TokenNeDiv;
+import com.cignoir.utils.RegexParser;
+
 
 /**
  * Tokenは品詞単位の最小ノード。
